@@ -2,4 +2,4 @@ ven
 aws-key.pem
 nginx/data
 nginx/letsencrypt
-backend/.env
+backend/*.env
