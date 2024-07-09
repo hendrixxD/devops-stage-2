@@ -1,0 +1,126 @@
+# version: '3.8'
+
+# services:
+#   backend:
+#     build:
+#       context: ./backend
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       POSTGRES_USER: ${POSTGRES_USER}
+#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#       POSTGRES_DB: ${POSTGRES_DB}
+#     env_file: ./backend/.env
+#     depends_on:
+#       - db
+
+#   frontend:
+#     build:
+#       context: ./frontend
+#     ports:
+#       - "5173:5173"
+#     env_file:
+#       ./frontend/.env
+#     depends_on:
+#       - backend
+  
+#   db:
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_USER: ${POSTGRES_USER}
+#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#       POSTGRES_DB: ${POSTGRES_DB}
+#     env_file:
+#       ./backend/.env
+#     ports:
+#       - "5433:5432"
+#     depends_on:
+#       - adminer
+#     volumes: 
+#       - postgres_data:/var/lib/postgresql/data
+
+#   nginx-proxy-manager:
+#     image: jc21/nginx-proxy-manager:latest
+#     restart: always
+#     ports:
+#       - "8090:8090"  # Proxy Manager GUI
+#     environment:
+#       DB_SQLITE_FILE: "/data/database.sqlite"
+#     volumes:
+#       - ./nginx/data:/data
+#       - ./nginx/letsencrypt:/etc/letsencrypt
+  
+#   adminer:
+#     image: adminer
+#     container_name: adminer
+#     ports:
+#       - "8080:8080"
+#     # environment:
+#     #   ADMINER_DEFAULT_SERVER: ${POSTGRES_SERVER}
+#     #   ADMINER_DEFAULT_PORT: ${POSTGRES_PORT}
+#     #   ADMINER_DEFAULT_DB: ${POSTGRES_DB}
+#     #   ADMINER_DEFAULT_USERNAME: ${POSTGRES_USER}
+#     #   ADMINER_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
+#     # depends_on:
+#     #   - backend
+#     # env_file:
+#     #   - ./backend/.env
+  
+# volumes:
+#   postgres_data:
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    env_file: 
+      - ./backend/.env
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+  
+  db:
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: hendrixx
+      POSTGRES_PASSWORD: DevHendrixx1-
+      POSTGRES_DB: hng
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    ports:
+      - "8090:8090"  # Proxy Manager GUI
+    environment:
+      DB_SQLITE_FILE: "/data/database.sqlite"
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+  
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
