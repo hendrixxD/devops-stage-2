@@ -1,20 +1,17 @@
-# Use an official Node runtime as a parent image
-FROM node:18-alpine
+# Use an official Node runtime as a parent imag
+FROM node:latest
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy the application files
+COPY . .
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
-
-# Expose port 5173
+# Expose the port the development server runs on
 EXPOSE 5173
 
-# Start the development server
-CMD npm run dev -- -- host 0.0.0.0
+# Run the development server
+CMD ["npm", "run", "dev", "--", "--host"]
