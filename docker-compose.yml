@@ -13,6 +13,10 @@ services:
         condition: service_healthy
     env_file:
       - ./backend/.env
+    environment:
+      POSTGRES_DB: hng
+      POSTGRES_USER: hendrixx
+      POSTGRES_PASSWORD: DevHendrixx1-
 
   frontend:
     build:
@@ -22,6 +26,8 @@ services:
       - "5173:5173"
     env_file:
       - ./frontend/.env
+    environment:
+      VITE_URL_API: http://localhost:8000
 
   db:
     image: postgres:latest
