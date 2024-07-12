@@ -4,3 +4,4 @@ nginx/data
 nginx/letsencrypt
 backend/*.env
 .env
+hng.pem

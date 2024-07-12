@@ -11,7 +11,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    env_file: 
+    env_file:
       - ./backend/.env
 
   frontend:
@@ -34,6 +34,7 @@ services:
       - ./backend/.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -h localhost -p 5432 -U hendrixx -d hng"]
+      # test: ["CMD-SHELL", "pg_isready -h localhost -p ${POSTGRES_PORT} -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -45,7 +46,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8090:8090"  # Proxy Manager GUI
+      - "8090:81"  # Proxy Manager GUI
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite"
     volumes:
