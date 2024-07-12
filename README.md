@@ -403,26 +403,3 @@ wanna see how the redirection work for `www.db.hendrixx.midjava.com`? [watch the
 ![redirection host](./img/RD2.png)
 
 wanna see how the redirection work for `www.hendrixx.midjava.com`? [watch the preview here](./img/www_hendrixx_midjava_com.mp4)
-
-3. www.proxy.midjava.com
-
-![proxy redirection](./img/RD3.png)
-
-Unfortunately, afraid DNS only allows for a max of 5 sub domains. i have mapped 3 proxy host and of 2 of redirection host.
-
-
-### Ensuring that the domains and configurations are automatically set up and accessible after spining up the containers with `docker-compose up`
-
-To achieve that, Nginx Proxy Manager Configuration will backed up
-
- - Nginx Proxy Manager data directory is copied from the running image and saved at the root of the project.
-
- - move the `data` directory  to `./nginx`
-
- - create .env and set neccesary details
-   ```sh
-   cp .env.example .env
-   ```
-- ```sh
-  docker-compose up --build
-  ```
