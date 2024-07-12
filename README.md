@@ -415,8 +415,14 @@ Unfortunately, afraid DNS only allows for a max of 5 sub domains. i have mapped 
 
 To achieve that, Nginx Proxy Manager Configuration will backed up
 
- - Nginx Proxy Manager SQLite database is copied from the running image and saved in `/backup/database.sqlite` 
+ - Nginx Proxy Manager data directory is copied from the running image and saved at the root of the project.
 
- - replace `/nginx/data/database.sqlite` with `database.sqlite` in `./backup` directory`
+ - move the `data` directory  to `./nginx`
 
- - edit the .env file in the backend directory appropropriately.
+ - create .env and set neccesary details
+   ```sh
+   cp .env.example .env
+   ```
+- ```sh
+  docker-compose up --build
+  ```
